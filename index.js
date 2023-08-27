@@ -90,7 +90,7 @@ bot.on("message", async (msg) => {
     });
   }
   else{
-    sendMessage(chatId, "no valid command detected, valid commands are: " + Text.join(commandList," "));
+    sendMessage(chatId, "No valid command detected. Valid commands are: " + commandList.join(", "));
   }
 
 });
