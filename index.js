@@ -11,6 +11,8 @@ const token = process.env.TELEGRAM_API_KEY;
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
 
+console.log("starting to listen for commands");
+
 async function sendMessage(chatId, message) {
   try {
     console.log("trying to send message to all subscribers");
