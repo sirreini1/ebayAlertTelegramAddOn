@@ -88,7 +88,9 @@ bot.on("message", async (msg) => {
       sendMessage(chatId, `stdout: ${stdout}`);
       console.error(`stderr: ${stderr}`);
     });
-
+  }
+  else{
+    sendMessage(chatId, "no valid command detected, valid commands are: " + Text.join(commandList," "));
   }
 
 });
