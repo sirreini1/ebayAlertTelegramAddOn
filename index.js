@@ -37,6 +37,7 @@ bot.on("message", async (msg) => {
   const messageText = (msg && msg.text) ? msg.text : '';
 
   // Split the message by spaces
+  console.log("received new message: " + messageText);
   const parts = messageText.split(' ');
   const commandString = parts[0];
   const commandParameterString = parts[1];
