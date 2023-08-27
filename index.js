@@ -13,6 +13,11 @@ const bot = new TelegramBot(token, { polling: true });
 
 console.log("starting to listen for commands");
 
+function isIntegerString(s) {
+  const num = Number(s);
+  return Number.isInteger(num);
+}
+
 async function sendMessage(chatId, message) {
   try {
     console.log("trying to send message to all subscribers");
@@ -81,17 +86,20 @@ bot.on("message", async (msg) => {
     });
   }
   else if (commandString === '/remove') {
-    exec(ebayAlertCommand + ' links -r ' + commandParameterString, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        sendMessage(chatId, `exec error: ${error}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-      sendMessage(chatId, `stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
-    });
+    if (isIntegerString(commandParameterString)) {
+      exec(ebayAlertCommand + ' links -r ' + commandParameterString, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          sendMessage(chatId, `exec error: ${error}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        sendMessage(chatId, `stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+      });
+    }else{
+      sendMessage(chatId, 'Falscher parameter für /remove, der parameter muss die nummer des links sein, die link nummern bekommt man mit /list');
+    }
   }
-
 
 });
