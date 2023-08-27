@@ -14,14 +14,8 @@ const bot = new TelegramBot(token, { polling: true });
 async function sendMessage(chatId, message) {
   try {
     console.log("trying to send message to all subscribers");
-    const data = await retrieveData(url);
-    const formattedMessage = `${data
-      .map((item) => `- ${item.phoneType}: ${item.price}`)
-      .join("\n")}`;
-
-    console.log(formattedMessage);
     chatIds.forEach(async (chatId) => {
-      bot.sendMessage(chatId, formattedMessage);
+      bot.sendMessage(chatId, message);
     });
   } catch (error) {
     console.error("Error:", error);
