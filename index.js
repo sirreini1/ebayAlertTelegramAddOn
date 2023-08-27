@@ -17,7 +17,7 @@ async function sendMessage(chatId, message) {
   try {
     console.log("trying to send message to all subscribers");
     bot.sendMessage(chatId, message);
- 
+
   } catch (error) {
     console.error("Error:", error);
   }
@@ -45,6 +45,8 @@ bot.on("message", async (msg) => {
   const commandList = ['/add', '/list', '/remove'];
 
   if (!commandList.includes(parts[0])) {
+
+    sendMessage(chatId, "No valid command detected. Valid commands are: " + commandList.join(", "));
     return;
   }
 
@@ -90,8 +92,6 @@ bot.on("message", async (msg) => {
       console.error(`stderr: ${stderr}`);
     });
   }
-  else{
-    sendMessage(chatId, "No valid command detected. Valid commands are: " + commandList.join(", "));
-  }
+
 
 });
