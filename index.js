@@ -51,17 +51,22 @@ bot.on("message", async (msg) => {
   }
 
   if (commandString === '/add') {
+    if (httpRegex.test(commandParameterString)) {
+      exec(ebayAlertCommand + ' links -a ' + commandParameterString, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          sendMessage(chatId, `exec error: ${error}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        sendMessage(chatId, `stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+      });
 
-    exec(ebayAlertCommand + ' links -a ' + commandParameterString, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        sendMessage(chatId, `exec error: ${error}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-      sendMessage(chatId, `stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
-    });
+    }
+    else {
+      sendMessage(chatId, "der parameter muss ein valider link sein! So zum beispiel: '/add https://www.kleinanzeigen.de/s-suchen.html'")
+    }
   }
   else if (commandString === '/list') {
     exec(ebayAlertCommand + ' links -s', (error, stdout, stderr) => {
