@@ -16,9 +16,8 @@ console.log("starting to listen for commands");
 async function sendMessage(chatId, message) {
   try {
     console.log("trying to send message to all subscribers");
-    chatIds.forEach(async (chatId) => {
-      bot.sendMessage(chatId, message);
-    });
+    bot.sendMessage(chatId, message);
+ 
   } catch (error) {
     console.error("Error:", error);
   }
@@ -38,7 +37,7 @@ bot.on("message", async (msg) => {
   const messageText = (msg && msg.text) ? msg.text : '';
 
   // Split the message by spaces
-  const parts =messageText.split(' ');
+  const parts = messageText.split(' ');
   const commandString = parts[0];
   const commandParameterString = parts[1];
   const ebayAlertCommand = "/home/reini/miniconda3/bin/python -m ebAlert";
